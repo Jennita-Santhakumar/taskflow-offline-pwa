@@ -1,0 +1,23 @@
+{
+  "model_version": "gbr-v1",
+  "n_train": 480,
+  "n_test": 120,
+  "ndcg_at_10": 0.8623,
+  "kendall_tau": 0.3226,
+  "kendall_tau_p_value": 0.0,
+  "feature_importances": {
+    "priority_num": 0.2657,
+    "estimated_minutes": 0.0939,
+    "has_due_date": 0.0034,
+    "days_until_due": 0.2797,
+    "is_overdue": 0.0,
+    "decision_hour": 0.1548,
+    "decision_dow": 0.0927,
+    "category_general": 0.0201,
+    "category_work": 0.0167,
+    "category_personal": 0.0092,
+    "category_health": 0.0269,
+    "category_learning": 0.0207,
+    "category_errands": 0.0162
+  }
+}

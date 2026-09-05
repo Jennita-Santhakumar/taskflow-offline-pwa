@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+dist/
+.env
+model-artifacts/*.pkl
+*.log
+.pytest_cache/
+coverage/
+.coverage
+htmlcov/
+backend/tests/_artifacts/
+model-artifacts/*.joblib
+*.tsbuildinfo

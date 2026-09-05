@@ -1,0 +1,105 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.app {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.banner {
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.banner.offline {
+  background: #7c2d12;
+}
+
+.banner.syncing {
+  background: #1e3a8a;
+}
+
+.banner.queued {
+  background: #78350f;
+}
+
+.card {
+  background: #1e293b;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #334155;
+}
+
+.task-row:last-child {
+  border-bottom: none;
+}
+
+.pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.pill.urgent {
+  background: #7f1d1d;
+}
+.pill.high {
+  background: #7c2d12;
+}
+.pill.medium {
+  background: #365314;
+}
+.pill.low {
+  background: #1e3a8a;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  background: #2563eb;
+  color: white;
+  font-size: 14px;
+}
+
+button.secondary {
+  background: #334155;
+}
+
+input,
+select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}

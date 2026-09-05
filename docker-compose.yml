@@ -1,0 +1,84 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: tasks
+      POSTGRES_PASSWORD: tasks
+      POSTGRES_DB: tasks
+    ports:
+      - "5502:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tasks -d tasks"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    ports:
+      - "6440:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: ./backend
+    ports:
+      - "8060:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg://tasks:tasks@postgres:5432/tasks
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET: dev-secret-change-me
+      MODEL_ARTIFACT_DIR: /app/model-artifacts
+      CORS_ORIGINS: http://localhost:5233
+      SEED_SYNTHETIC_DATA: "true"
+    volumes:
+      - ./model-artifacts:/app/model-artifacts
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8060}
+        VITE_WS_BASE_URL: ${VITE_WS_BASE_URL:-ws://localhost:8060}
+    ports:
+      - "5233:80"
+    depends_on:
+      - api
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9110:9090"
+    volumes:
+      - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - api
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3013:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+    volumes:
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+
+volumes:
+  postgres_data:
