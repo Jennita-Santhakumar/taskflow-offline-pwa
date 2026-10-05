@@ -1,5 +1,7 @@
 # Offline-First Task Management Platform with ML Task Prioritization
 
+> **Maintained by [Jennita S](https://github.com/Jennita-Santhakumar)** · [LinkedIn](https://linkedin.com/in/jennitas) · jennitasanthakumar0@gmail.com
+
 A task manager built offline-first: a PWA client with local IndexedDB persistence, a queued sync
 engine with exponential backoff and last-write-wins conflict resolution, a FastAPI backend with
 JWT auth and WebSocket push notifications, and a real, honestly-evaluated ML ranker that scores a
@@ -195,3 +197,7 @@ http://localhost:3013 (admin/admin, anonymous viewer access enabled).
   edit via `/sync/push` with a stale timestamp -> confirm last-write-wins -> pull -> call
   `/recommendations/next-tasks` -> confirm ranking matches priority/due-date expectations ->
   verify a WebSocket push fires on a task mutation.
+
+## Credits
+
+Developed by Kabilesh Rajaselvan with contributions from Jennita S.
