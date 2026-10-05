@@ -198,6 +198,4 @@ http://localhost:3013 (admin/admin, anonymous viewer access enabled).
   `/recommendations/next-tasks` -> confirm ranking matches priority/due-date expectations ->
   verify a WebSocket push fires on a task mutation.
 
-## Credits
 
-Developed by Kabilesh Rajaselvan with contributions from Jennita S.
